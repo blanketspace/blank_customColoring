@@ -12,11 +12,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        PaintBrush lightPaint = findViewById(R.id.drawingBoard);
-        lightPaint.setOnTouchListener((View.OnTouchListener) lightPaint); //TODO: this is problematic
+        PaintBrush lightPaint = findViewById(R.id.drawingBoard);  //view is now set up to be the SurfaceView
         ClickManager karen = new ClickManager(lightPaint);
+        lightPaint.setOnTouchListener(karen); //controller set to be listener for touch events on the view
 
-        //let controller (ClickManager) act as listener for SeekBars
+        //let controller (ClickManager) act as listener for SeekBar events
         SeekBar reddy = findViewById(R.id.redSeek);
         reddy.setOnSeekBarChangeListener(karen);
         SeekBar bluey = findViewById(R.id.blueSeek);

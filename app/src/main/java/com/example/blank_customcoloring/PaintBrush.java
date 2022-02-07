@@ -10,7 +10,7 @@ import android.view.View;
 
 /**
  * @author Anne Marie Blank
- * @version 2/4/22
+ * @version 2/6/22
  *
  * class PaintBrush implements SurfaceView interface to draw the
  * image on the screen
@@ -18,19 +18,26 @@ import android.view.View;
 public class PaintBrush extends SurfaceView {
     private ModelPicture lightModel;
 
-    //TODO: instance variables, for sizing
-    //private float houseWidth = 100.0f;
-    //private float houseHeight = 300.0f;
-
     //colors
     Paint houseColor = new Paint();
     Paint stripesColor = new Paint();
     Paint lightColor = new Paint();
     Paint grassColor = new Paint();
-    Paint roofColor = new Paint();
     Paint skyColor = new Paint();
     Paint middleColor = new Paint();
 
+   CustomRect house = new CustomRect("House Body", 0xFFffffff, 400,
+           700, 700, 1500);
+   CustomRect topStripe = new CustomRect("Top Stripe", 0xFFeb4034,400,
+           800, 700, 900);
+   CustomRect topMiddleStripe = new CustomRect("Middle Stripe 1", 0xFFeb4034,
+           400, 1000, 700, 1100);
+   CustomRect bottomMiddleStripe = new CustomRect("Middle Stripe 2", 0xFFeb4034,
+           400, 1200, 700, 1300);
+   CustomRect bottomStripe = new CustomRect("Bottom Stripe", 0xFFeb4034,
+           400, 1400, 700, 1500);
+   CustomRect lightBox = new CustomRect("Light", 0xFFffef73, 425,
+           400, 675,700);
 
 
     public PaintBrush(Context context, AttributeSet attrs) {
@@ -48,18 +55,23 @@ public class PaintBrush extends SurfaceView {
         lightColor.setStyle(Paint.Style.FILL);
         grassColor.setColor(0xFF77b35b);    //darkish green
         grassColor.setStyle(Paint.Style.FILL);
-        roofColor.setColor(0xFF701500);    //maroon
         grassColor.setStyle(Paint.Style.FILL);
         middleColor.setColor(0xFF737778);  //sky blue
         middleColor.setStyle(Paint.Style.FILL);
         setBackgroundColor(0xFF88e8f2);
+
+        lightModel.elements.add(house);
+        lightModel.elements.add(topStripe);
+        lightModel.elements.add(topMiddleStripe);
+        lightModel.elements.add(bottomMiddleStripe);
+        lightModel.elements.add(bottomStripe);
+
     }//ctor
 
     public ModelPicture getModel() {
         return lightModel;
     }
 
-    //TODO: methods for drawing components
     /**
      * method that draws the lighthouse
      */
@@ -70,21 +82,19 @@ public class PaintBrush extends SurfaceView {
          // maybe? this.setBackgroundColor();
 
         //main body
-        canvas.drawRect(400.0f, 700.0f, 700.0f, 1500.0f, houseColor);
+        house.drawMe(canvas);
 
         //stripes
-        canvas.drawRect(400.0f, 800.0f, 700.0f, 900.0f, stripesColor);
-        canvas.drawRect(400.0f, 1000.0f, 700.0f, 1100.0f, stripesColor);
-        canvas.drawRect(400.0f, 1200.0f, 700.0f, 1300.0f, stripesColor);
-        canvas.drawRect(400.0f, 1400.0f, 700.0f, 1500.0f, stripesColor);
+        topStripe.drawMe(canvas);
+        topMiddleStripe.drawMe(canvas);
+        bottomMiddleStripe.drawMe(canvas);
+        bottomStripe.drawMe(canvas);
 
         //light
-        canvas.drawRect(425.0f, 400.0f, 675.0f,700.0f, lightColor);
-
+        lightBox.drawMe(canvas);
 
         //railing thing
         canvas.drawRect(350.0f, 550.0f, 750.0f, 700.0f, middleColor);
-
 
         //"hat"
         Path triangle = new Path();
@@ -93,8 +103,10 @@ public class PaintBrush extends SurfaceView {
         triangle.lineTo(300.0f, 400.0f);
         triangle.lineTo(550.0f, 200.0f);
         triangle.close();
-        canvas.drawPath(triangle, roofColor);
+        canvas.drawPath(triangle, middleColor);
 
     }//onDraw
+
+
 
 }//class PaintBrush
