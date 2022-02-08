@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         PaintBrush lightPaint = findViewById(R.id.drawingBoard);  //view is now set up to be the SurfaceView
-        ClickManager karen = new ClickManager(lightPaint);
+        ClickManager karen = new ClickManager(lightPaint, findViewById(R.id.componentName));
         lightPaint.setOnTouchListener(karen); //controller set to be listener for touch events on the view
 
         //let controller (ClickManager) act as listener for SeekBar events

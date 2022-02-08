@@ -38,7 +38,9 @@ public class PaintBrush extends SurfaceView {
            400, 1400, 700, 1500);
    CustomRect lightBox = new CustomRect("Light", 0xFFffef73, 425,
            400, 675,700);
-
+   CustomRect sky = new CustomRect("Sky", 0xFF88e8f2, 0, 0, 2100, 1400);
+   CustomRect grass = new CustomRect("Grass", 0xFF77b35b, 0,
+           1400, 1500, 2100);
 
     public PaintBrush(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -58,13 +60,14 @@ public class PaintBrush extends SurfaceView {
         grassColor.setStyle(Paint.Style.FILL);
         middleColor.setColor(0xFF737778);  //sky blue
         middleColor.setStyle(Paint.Style.FILL);
-        setBackgroundColor(0xFF88e8f2);
 
-        lightModel.elements.add(house);
+        //add all the RectElements to the array in the model
         lightModel.elements.add(topStripe);
         lightModel.elements.add(topMiddleStripe);
         lightModel.elements.add(bottomMiddleStripe);
         lightModel.elements.add(bottomStripe);
+        lightModel.elements.add(lightBox);
+        lightModel.elements.add(grass);
 
     }//ctor
 
@@ -77,9 +80,10 @@ public class PaintBrush extends SurfaceView {
      */
     public void onDraw(Canvas canvas) {
         //grass
-        canvas.drawRect(0.0f, 1400.0f, 1500.0f, 2100.0f, grassColor);
+        grass.drawMe(canvas);
+
         //sky
-         // maybe? this.setBackgroundColor();
+        sky.drawMe(canvas);
 
         //main body
         house.drawMe(canvas);

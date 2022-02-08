@@ -1,5 +1,8 @@
 package com.example.blank_customcoloring;
 
+import android.view.View;
+import android.widget.SeekBar;
+
 import java.util.ArrayList;
 
 /**
@@ -14,6 +17,9 @@ public class ModelPicture {
 
     ArrayList<CustomRect> elements = new ArrayList<>();
     CustomRect chosenRect;
+    SeekBar myGreen;
+    SeekBar myRed;
+    SeekBar myBlue;
 
     public ModelPicture(){
 
@@ -30,4 +36,25 @@ public class ModelPicture {
         return temp;
     }
 
+    /**
+     * getSeekBars
+     *
+     * @param v  the View to look in
+     * @param choice  an integer to designate which seekBar we're dealing with
+     * @return  the SeekBar that matches the above paramaters
+     */
+    public SeekBar getSeekBars(View v, int choice) {
+        if (choice == 1) {
+            return myRed;
+        }
+        else if (choice == 2) {
+            return myBlue;
+        }
+        else if (choice == 3) {
+            return myGreen;
+        }
+        else {
+            return null;
+        }
+    }
 }

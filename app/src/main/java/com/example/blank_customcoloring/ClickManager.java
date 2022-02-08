@@ -1,5 +1,7 @@
 package com.example.blank_customcoloring;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -9,18 +11,27 @@ import android.widget.TextView;
 /**
  *
  * @author Anne Marie Blank
- * @version 2/6/22
+ * @version 2/7/22
  *
  * class ClickManager serves as the controller for the project
  */
 public class ClickManager implements View.OnTouchListener, SeekBar.OnSeekBarChangeListener {
     private PaintBrush lighthouseView;
     private ModelPicture lightModel;
+    private TextView myText;
 
-    public ClickManager(PaintBrush pb) {
+    /**
+     * ctor for class ClickManager
+     *
+     * @param pb  the SurfaceView the program is working with
+     * @param tv  the TextView to be accessed, is passed in to ensure the onTouch can
+     *            find the correct TextView to change-- full credit to Max Woods for helping me
+     *            figure this out
+     */
+    public ClickManager(PaintBrush pb, TextView tv) {
         lighthouseView = pb;
         lightModel = lighthouseView.getModel();
-
+        myText = tv;
     }//ctor
 
     @Override
@@ -30,24 +41,36 @@ public class ClickManager implements View.OnTouchListener, SeekBar.OnSeekBarChan
         int y= (int)motionEvent.getY();
         CustomRect theChosen = lightModel.findRect(x, y); //variable to store the rectangle that's been touched
         lightModel.chosenRect = theChosen;
-        //TODO: change TextView to show name of selected
-        TextView tv = view.findViewById(R.id.componentName); //keeps returning null
-        CharSequence textName = theChosen.getName();
-        tv.setText(textName);
+        if(theChosen != null) {
+            //change TextView to show name of selected rectangle
+            CharSequence textName = theChosen.getName();
+            myText.setText(textName);
 
-        //TODO: tell seekBars to move their sliders to the proper positions
+            //TODO: tell seekBars to move their sliders to the proper positions
+           SeekBar redOne = lighthouseView.getModel().getSeekBars(lighthouseView, 1);
+           redOne.setProgress(theChosen.getColor()); //TODO: same problem as before, returns null
+        }
+
 
         lighthouseView.invalidate(); //so it knows to redraw itself
-        Log.i("ClickManager", "success" );
         return true;
     }//onTouch
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
         //TODO: change the value of the correct item's correct color component
-        //call color change method in Model?
-        //if(seekBar.getId==R.id.redSeek){ then set red component to i
 
+        //call a color change method in Model?
+        if(seekBar.getId() == R.id.redSeek) {
+            int redTemp = i;
+            //lightModel.chosenRect.setColor();
+        }
+        else if (seekBar.getId() == R.id.blueSeek){
+
+        }
+        else if(seekBar.getId() == R.id.greenSeek) {
+
+        }
         lighthouseView.invalidate();
     }//onProgressChanged
 

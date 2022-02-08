@@ -8,7 +8,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Blank_customColoring">
+        android:theme="@style/Theme.Blank_customColoring"
+        android:orientation = "vertical"> <!--forces app to launch vertically-->
         <activity
             android:name=".MainActivity"
             android:exported="true">

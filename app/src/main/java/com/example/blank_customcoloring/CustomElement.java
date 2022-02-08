@@ -22,7 +22,7 @@ public abstract class CustomElement {
      * this is the "fudge factor" for determining whether a tap falls within a
      * given shape. The value is specified in display pixels (dp)
      */
-    public static final int TAP_MARGIN = 5;  //i changed this because the stripes are so small
+    public static final int TAP_MARGIN = 0;  //i changed this because the stripes are so small
 
     /** This defines the main color that the element will be drawn with */
     protected Paint myPaint = new Paint();
